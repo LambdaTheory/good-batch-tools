@@ -1,0 +1,38 @@
+{
+  "2.jpg": {
+    "name": "2.jpg",
+    "url": "https://mdn.alipayobjects.com/mrch_material/afts/img/A*lWRRQ4B6G_oAAAAAUgAAAAgAeuN1AQ/original",
+    "fileId": "A*lWRRQ4B6G_oAAAAAUgAAAAgAeuN1AQ",
+    "imageId": "2025122500903001017879405940",
+    "status": "success",
+    "uploadTime": 1766633357.3262353,
+    "folder": "default"
+  },
+  "3.jpg": {
+    "name": "3.jpg",
+    "url": "https://mdn.alipayobjects.com/mrch_material/afts/img/A*9ImoT7Q9YDcAAAAAUWAAAAgAeuN1AQ/original",
+    "fileId": "A*9ImoT7Q9YDcAAAAAUWAAAAgAeuN1AQ",
+    "imageId": "2025122500903001017879399849",
+    "status": "success",
+    "uploadTime": 1766633358.223217,
+    "folder": "default"
+  },
+  "1.jpg": {
+    "name": "1.jpg",
+    "url": "https://mdn.alipayobjects.com/mrch_material/afts/img/A*EpcDR6PAFncAAAAARTAAAAgAeuN1AQ/original",
+    "fileId": "A*EpcDR6PAFncAAAAARTAAAAgAeuN1AQ",
+    "imageId": "2025122500903001017879553084",
+    "status": "success",
+    "uploadTime": 1766643162.768508,
+    "folder": "default"
+  },
+  "增距镜/1.jpg": {
+    "name": "1.jpg",
+    "folder": "增距镜",
+    "url": "https://mdn.alipayobjects.com/mrch_material/afts/img/A*NkqjTa9qAOoAAAAARTAAAAgAeuN1AQ/original",
+    "fileId": "A*NkqjTa9qAOoAAAAARTAAAAgAeuN1AQ",
+    "imageId": "2025122500903001017879571435",
+    "status": "success",
+    "uploadTime": 1766644218.5453687
+  }
+}

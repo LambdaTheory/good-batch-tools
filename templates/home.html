@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家工具箱 - 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">商家高效管理工具箱</h1>
+            <p class="text-xl text-gray-600">选择您需要使用的工具</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Alipay Tool Card -->
+            <a href="/alipay-goods" class="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border-t-4 border-blue-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i class="fa-brands fa-alipay text-3xl"></i>
+                        </div>
+                        <span class="text-blue-500 font-semibold bg-blue-50 px-3 py-1 rounded-full text-xs group-hover:bg-blue-100">推荐</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-blue-600">支付宝批量商品工具</h2>
+                    <p class="text-gray-600 mb-6">支持批量上传图片、Excel导入商品数据、自动分类管理。适用于支付宝商家后台商品批量发布。</p>
+                    <div class="flex items-center text-blue-500 font-medium">
+                        <span>立即使用</span>
+                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Mini Program Tool Card -->
+            <a href="/mini-program-goods" class="group block bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border-t-4 border-green-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-mobile-screen text-3xl"></i>
+                        </div>
+                        <span class="text-green-500 font-semibold bg-green-50 px-3 py-1 rounded-full text-xs group-hover:bg-green-100">新上线</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-green-600">小程序批量商品工具</h2>
+                    <p class="text-gray-600 mb-6">专为小程序商品管理设计。支持独立库存管理、多规格SKU设置及批量上架功能。</p>
+                    <div class="flex items-center text-green-500 font-medium">
+                        <span>立即使用</span>
+                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="mt-12 text-center text-gray-400 text-sm">
+            <p>&copy; 2025 商家工具箱 v1.1.0</p>
+        </div>
+    </div>
+</body>
+</html>

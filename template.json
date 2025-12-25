@@ -1,0 +1,368 @@
+{
+    "appId": "2021005181665859",
+    "itemSubType": "RENT",
+    "categoryId": "C001627013",
+    "itemType": "NORMAL_ITEM",
+    "title": "富士mini12演唱会出游拍照神器租赁",
+    "attrs": {
+        "path": {
+            "path": "alipays://platformapi/startapp?appId=2021005181665859&page=shopPages/pages/shopDetail/shopDetail?id=287",
+            "item_details_page_model": "0"
+        },
+        "service_commitment": [
+            "11",
+            "8",
+            "4",
+            "2",
+            "6"
+        ],
+        "shipping_time_limit": "0",
+        "description_text": null,
+        "service_standard": "",
+        "sales_model": "[\"RENT\"]",
+        "floating_rule": {},
+        "spec": [],
+        "rent_commodity": [
+            {
+                "custom_lease": "1",
+                "name": "富士mini12",
+                "rent_duration": [
+                    1,
+                    2,
+                    3,
+                    5,
+                    7,
+                    10,
+                    15,
+                    30
+                ],
+                "slope_formula": "DEFAULT_SLOPE_FORMULA",
+                "unit": "天"
+            },
+            {
+                "custom_lease": "1",
+                "name": "富士mini 12+10张相纸",
+                "rent_duration": [
+                    1,
+                    2,
+                    3,
+                    5,
+                    7,
+                    10,
+                    15,
+                    30
+                ],
+                "slope_formula": "DEFAULT_SLOPE_FORMULA",
+                "unit": "天"
+            },
+            {
+                "custom_lease": "1",
+                "name": "富士mini 12+20张相纸",
+                "rent_duration": [
+                    1,
+                    2,
+                    3,
+                    5,
+                    7,
+                    10,
+                    15,
+                    30
+                ],
+                "slope_formula": "DEFAULT_SLOPE_FORMULA",
+                "unit": "天"
+            }
+        ],
+        "maximum_sum_rent_price": "",
+        "cover_video": null,
+        "guide_desc": null,
+        "value_added_services": [
+            {
+                "protection_scope": "使用过程中造成未到换机级别的小问题小故障，维修成本在200元内的直接免赔。安心用只保机器本身不保配件，配件有损或丢失需照价赔偿。",
+                "service_price": 2000,
+                "service_introduction": "小磕碰免赔 5mm< 非人为导致拍摄效果的故障",
+                "service_name": "安心保",
+                "claim_process": "联系客服发订单购买过安心保即可",
+                "special_intruction": "人为(例如磕碰)导致影响拍摄效果的故障 官方维修价格 不超过568元 官方维修价格-200元 (不超过368元))",
+                "disclaimer": "人为导致拍摄效果的故障"
+            }
+        ],
+        "item_cover_image": {
+            "materialId": "2025122500903002017864064568",
+            "copyMaterialId": "2025122500903003017858670196",
+            "url_list": [
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*LeViT5Bd1xYAAAAAS_AAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*ygcPT5EEbb0AAAAAVeAAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*JNSkQqTCYr0AAAAAW6AAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*f0OrQpBBcTMAAAAATlAAAAgAeuN1AQ/original"
+            ],
+            "image_id_list": [
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*LeViT5Bd1xYAAAAAS_AAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*ygcPT5EEbb0AAAAAVeAAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*JNSkQqTCYr0AAAAAW6AAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*f0OrQpBBcTMAAAAATlAAAAgAeuN1AQ/original"
+            ]
+        },
+        "description_image": {
+            "materialId": "2025122500903002017864068592",
+            "copyMaterialId": "2025122500903003017858669121",
+            "url_list": [
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*LeViT5Bd1xYAAAAAS_AAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*ygcPT5EEbb0AAAAAVeAAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*f0OrQpBBcTMAAAAATlAAAAgAeuN1AQ/original",
+                "https://mdn.alipayobjects.com/mrch_material/afts/img/A*JNSkQqTCYr0AAAAAW6AAAAgAeuN1AQ/original"
+            ],
+            "image_id_list": []
+        },
+        "white_ground_image": {
+            "materialId": "2025122500903002017864065756",
+            "copyMaterialId": "2025122500903003017858673642",
+            "url_list": [
+                "https://mdn.alipayobjects.com/huamei_wspxri/afts/img/A*gAbnR5-GpCoAAAAAQwAAAAgAenh5AQ/original"
+            ],
+            "image_id_list": []
+        },
+        "selling_point_tag": [],
+        "custom_attrs": [],
+        "customs_declaration": [],
+        "quality_inspection_report": [],
+        "item_inspection_quarantine_certificate": [],
+        "delivery_info": [],
+        "rent_from_numbers_of_day": "3",
+        "item_fineness": "secondHand",
+        "item_fineness_grade": "99新",
+        "whether_support_free_deposit": "1",
+        "whether_continue_rent": "1",
+        "whether_buyout": "0",
+        "rent_duration_cal_rule": "2"
+    },
+    "outItemId": "287",
+    "price": {
+        "priceUnit": "元/日"
+    },
+    "spuSpecList": [],
+    "skus": [
+        {
+            "mcThumbImg": null,
+            "outSkuId": "test11212",
+            "salePrice": 660,
+            "originalPrice": "",
+            "priceUnit": "元/日",
+            "saleStatus": "AVAILABLE",
+            "skuAttrs": [
+                {
+                    "attrKey": "rent_commodity",
+                    "attrType": "custom",
+                    "attrValue": {
+                        "name": "富士mini12",
+                        "durationUnit": "日",
+                        "priceUnit": "元",
+                        "slopeFormula": "DEFAULT_SLOPE_FORMULA",
+                        "customLease": "1",
+                        "durationPriceList": [
+                            {
+                                "duration": 1,
+                                "totalSalePrice": 4600
+                            },
+                            {
+                                "duration": 2,
+                                "totalSalePrice": 5400
+                            },
+                            {
+                                "duration": 3,
+                                "totalSalePrice": 4600
+                            },
+                            {
+                                "duration": 5,
+                                "totalSalePrice": 5600
+                            },
+                            {
+                                "duration": 7,
+                                "totalSalePrice": 6800
+                            },
+                            {
+                                "duration": 10,
+                                "totalSalePrice": 8800
+                            },
+                            {
+                                "duration": 15,
+                                "totalSalePrice": 10800
+                            },
+                            {
+                                "duration": 30,
+                                "totalSalePrice": 19800
+                            }
+                        ]
+                    }
+                },
+                {
+                    "attrKey": "date_quantity",
+                    "attrType": "custom",
+                    "attrValue": "[{\"date\":\"20251225\",\"quantity\":0},{\"date\":\"20251226\",\"quantity\":0},{\"date\":\"20251227\",\"quantity\":20},{\"date\":\"20251228\",\"quantity\":20},{\"date\":\"20251229\",\"quantity\":20},{\"date\":\"20251230\",\"quantity\":20},{\"date\":\"20251231\",\"quantity\":20},{\"date\":\"20260101\",\"quantity\":20},{\"date\":\"20260102\",\"quantity\":20},{\"date\":\"20260103\",\"quantity\":20},{\"date\":\"20260104\",\"quantity\":20},{\"date\":\"20260105\",\"quantity\":20},{\"date\":\"20260106\",\"quantity\":20},{\"date\":\"20260107\",\"quantity\":20},{\"date\":\"20260108\",\"quantity\":20},{\"date\":\"20260109\",\"quantity\":20},{\"date\":\"20260110\",\"quantity\":20},{\"date\":\"20260111\",\"quantity\":20},{\"date\":\"20260112\",\"quantity\":20},{\"date\":\"20260113\",\"quantity\":20},{\"date\":\"20260114\",\"quantity\":20},{\"date\":\"20260115\",\"quantity\":20},{\"date\":\"20260116\",\"quantity\":20},{\"date\":\"20260117\",\"quantity\":20},{\"date\":\"20260118\",\"quantity\":20},{\"date\":\"20260119\",\"quantity\":20},{\"date\":\"20260120\",\"quantity\":20},{\"date\":\"20260121\",\"quantity\":20},{\"date\":\"20260122\",\"quantity\":20},{\"date\":\"20260123\",\"quantity\":20},{\"date\":\"20260124\",\"quantity\":20},{\"date\":\"20260125\",\"quantity\":20},{\"date\":\"20260126\",\"quantity\":20},{\"date\":\"20260127\",\"quantity\":20},{\"date\":\"20260128\",\"quantity\":20},{\"date\":\"20260129\",\"quantity\":20},{\"date\":\"20260130\",\"quantity\":20},{\"date\":\"20260131\",\"quantity\":20}]"
+                }
+            ],
+            "stockNum": null,
+            "thumbImg": {},
+            "skuType": "sku",
+            "attrs": []
+        },
+        {
+            "mcThumbImg": null,
+            "outSkuId": "test11213",
+            "salePrice": 894,
+            "originalPrice": "",
+            "priceUnit": "元/日",
+            "saleStatus": "AVAILABLE",
+            "skuAttrs": [
+                {
+                    "attrKey": "rent_commodity",
+                    "attrType": "custom",
+                    "attrValue": {
+                        "name": "富士mini 12+10张相纸",
+                        "durationUnit": "日",
+                        "priceUnit": "元",
+                        "slopeFormula": "DEFAULT_SLOPE_FORMULA",
+                        "customLease": "1",
+                        "durationPriceList": [
+                            {
+                                "duration": 1,
+                                "totalSalePrice": 11600
+                            },
+                            {
+                                "duration": 2,
+                                "totalSalePrice": 12800
+                            },
+                            {
+                                "duration": 3,
+                                "totalSalePrice": 11600
+                            },
+                            {
+                                "duration": 5,
+                                "totalSalePrice": 12600
+                            },
+                            {
+                                "duration": 7,
+                                "totalSalePrice": 13800
+                            },
+                            {
+                                "duration": 10,
+                                "totalSalePrice": 15800
+                            },
+                            {
+                                "duration": 15,
+                                "totalSalePrice": 17800
+                            },
+                            {
+                                "duration": 30,
+                                "totalSalePrice": 26800
+                            }
+                        ]
+                    }
+                },
+                {
+                    "attrKey": "date_quantity",
+                    "attrType": "custom",
+                    "attrValue": "[{\"date\":\"20251225\",\"quantity\":0},{\"date\":\"20251226\",\"quantity\":0},{\"date\":\"20251227\",\"quantity\":20},{\"date\":\"20251228\",\"quantity\":20},{\"date\":\"20251229\",\"quantity\":20},{\"date\":\"20251230\",\"quantity\":20},{\"date\":\"20251231\",\"quantity\":20},{\"date\":\"20260101\",\"quantity\":20},{\"date\":\"20260102\",\"quantity\":20},{\"date\":\"20260103\",\"quantity\":20},{\"date\":\"20260104\",\"quantity\":20},{\"date\":\"20260105\",\"quantity\":20},{\"date\":\"20260106\",\"quantity\":20},{\"date\":\"20260107\",\"quantity\":20},{\"date\":\"20260108\",\"quantity\":20},{\"date\":\"20260109\",\"quantity\":20},{\"date\":\"20260110\",\"quantity\":20},{\"date\":\"20260111\",\"quantity\":20},{\"date\":\"20260112\",\"quantity\":20},{\"date\":\"20260113\",\"quantity\":20},{\"date\":\"20260114\",\"quantity\":20},{\"date\":\"20260115\",\"quantity\":20},{\"date\":\"20260116\",\"quantity\":20},{\"date\":\"20260117\",\"quantity\":20},{\"date\":\"20260118\",\"quantity\":20},{\"date\":\"20260119\",\"quantity\":20},{\"date\":\"20260120\",\"quantity\":20},{\"date\":\"20260121\",\"quantity\":20},{\"date\":\"20260122\",\"quantity\":20},{\"date\":\"20260123\",\"quantity\":20},{\"date\":\"20260124\",\"quantity\":20},{\"date\":\"20260125\",\"quantity\":20},{\"date\":\"20260126\",\"quantity\":20},{\"date\":\"20260127\",\"quantity\":20},{\"date\":\"20260128\",\"quantity\":20},{\"date\":\"20260129\",\"quantity\":20},{\"date\":\"20260130\",\"quantity\":20},{\"date\":\"20260131\",\"quantity\":20}]"
+                }
+            ],
+            "stockNum": null,
+            "thumbImg": {},
+            "skuType": "sku",
+            "attrs": []
+        },
+        {
+            "mcThumbImg": null,
+            "outSkuId": "test11214",
+            "salePrice": 1127,
+            "originalPrice": "",
+            "priceUnit": "元/日",
+            "saleStatus": "AVAILABLE",
+            "skuAttrs": [
+                {
+                    "attrKey": "rent_commodity",
+                    "attrType": "custom",
+                    "attrValue": {
+                        "name": "富士mini 12+20张相纸",
+                        "durationUnit": "日",
+                        "priceUnit": "元",
+                        "slopeFormula": "DEFAULT_SLOPE_FORMULA",
+                        "customLease": "1",
+                        "durationPriceList": [
+                            {
+                                "duration": 1,
+                                "totalSalePrice": 18600
+                            },
+                            {
+                                "duration": 2,
+                                "totalSalePrice": 19800
+                            },
+                            {
+                                "duration": 3,
+                                "totalSalePrice": 18600
+                            },
+                            {
+                                "duration": 5,
+                                "totalSalePrice": 19800
+                            },
+                            {
+                                "duration": 7,
+                                "totalSalePrice": 20800
+                            },
+                            {
+                                "duration": 10,
+                                "totalSalePrice": 22800
+                            },
+                            {
+                                "duration": 15,
+                                "totalSalePrice": 24800
+                            },
+                            {
+                                "duration": 30,
+                                "totalSalePrice": 33800
+                            }
+                        ]
+                    }
+                },
+                {
+                    "attrKey": "date_quantity",
+                    "attrType": "custom",
+                    "attrValue": "[{\"date\":\"20251225\",\"quantity\":0},{\"date\":\"20251226\",\"quantity\":0},{\"date\":\"20251227\",\"quantity\":20},{\"date\":\"20251228\",\"quantity\":20},{\"date\":\"20251229\",\"quantity\":20},{\"date\":\"20251230\",\"quantity\":20},{\"date\":\"20251231\",\"quantity\":20},{\"date\":\"20260101\",\"quantity\":20},{\"date\":\"20260102\",\"quantity\":20},{\"date\":\"20260103\",\"quantity\":20},{\"date\":\"20260104\",\"quantity\":20},{\"date\":\"20260105\",\"quantity\":20},{\"date\":\"20260106\",\"quantity\":20},{\"date\":\"20260107\",\"quantity\":20},{\"date\":\"20260108\",\"quantity\":20},{\"date\":\"20260109\",\"quantity\":20},{\"date\":\"20260110\",\"quantity\":20},{\"date\":\"20260111\",\"quantity\":20},{\"date\":\"20260112\",\"quantity\":20},{\"date\":\"20260113\",\"quantity\":20},{\"date\":\"20260114\",\"quantity\":20},{\"date\":\"20260115\",\"quantity\":20},{\"date\":\"20260116\",\"quantity\":20},{\"date\":\"20260117\",\"quantity\":20},{\"date\":\"20260118\",\"quantity\":20},{\"date\":\"20260119\",\"quantity\":20},{\"date\":\"20260120\",\"quantity\":20},{\"date\":\"20260121\",\"quantity\":20},{\"date\":\"20260122\",\"quantity\":20},{\"date\":\"20260123\",\"quantity\":20},{\"date\":\"20260124\",\"quantity\":20},{\"date\":\"20260125\",\"quantity\":20},{\"date\":\"20260126\",\"quantity\":20},{\"date\":\"20260127\",\"quantity\":20},{\"date\":\"20260128\",\"quantity\":20},{\"date\":\"20260129\",\"quantity\":20},{\"date\":\"20260130\",\"quantity\":20},{\"date\":\"20260131\",\"quantity\":20}]"
+                }
+            ],
+            "stockNum": null,
+            "thumbImg": {},
+            "skuType": "sku",
+            "attrs": []
+        }
+    ],
+    "salesSkus": [
+        {
+            "mcThumbImg": null,
+            "outSkuId": "",
+            "salePrice": "",
+            "originalPrice": "",
+            "priceUnit": "元",
+            "saleStatus": "AVAILABLE",
+            "skuAttrs": [],
+            "stockNum": null,
+            "thumbImg": {},
+            "skuType": "sales_sku",
+            "attrs": []
+        }
+    ],
+    "boothChannels": [
+        {
+            "boothCode": "COMMON_ITEM_CONSIGN",
+            "boothName": "智能化推广至",
+            "boothSwitch": true
+        },
+        {
+            "boothCode": "SESAME_CREDIT_RENT",
+            "boothName": "芝麻租赁",
+            "boothSwitch": true
+        }
+    ],
+    "extInfo": {
+        "intelligentCreateType": "ITEM_COPY_SUBMIT"
+    },
+    "businessModel": "SHORT_TERM_RENT"
+}

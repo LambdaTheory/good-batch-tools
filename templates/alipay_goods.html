@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付宝商品批量上传工具</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    {% raw %}
+    <div id="app" class="max-w-[1800px] mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-gray-500 hover:text-blue-600 transition-colors" title="返回首页">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-3xl font-bold text-blue-600">支付宝商品批量上传工具</h1>
+            </div>
+            <button @click="showConfig = !showConfig" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 bg-white px-4 py-2 rounded shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>{{ showConfig ? '隐藏配置' : '配置 Cookie' }}</span>
+            </button>
+        </div>
+
+        <!-- Step 1: Configuration (Collapsible) -->
+        <div v-show="showConfig" class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. 配置 (Cookie)</h2>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Cookie (程序会自动提取 CToken)</label>
+                    <textarea v-model="config.cookie" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2" placeholder="请粘贴支付宝商家后台的完整 Cookie"></textarea>
+                </div>
+                <div v-if="config.ctoken" class="text-sm text-green-600">
+                    已提取 CToken: {{ config.ctoken }}
+                </div>
+                <div class="flex items-center justify-between">
+                     <button @click="saveConfig" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-32">保存配置</button>
+                     <div class="text-sm text-gray-500">
+                         <span v-if="templateLoaded" class="text-green-600">✓ 默认模板已加载</span>
+                         <span v-else class="text-red-500">× 模板加载失败</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-6 items-start">
+            <!-- Left Column: Image Upload & Management -->
+            <div class="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow flex flex-col h-[calc(100vh-12rem)] sticky top-4">
+                <h2 class="text-xl font-semibold mb-4">2. 素材图片管理</h2>
+                
+                <div class="mb-4 flex flex-col gap-2">
+                    <label class="block text-sm font-medium text-gray-700">选择/新建文件夹</label>
+                    <div class="flex gap-2">
+                         <input list="folderList" v-model="uploadFolder" class="block w-full rounded-md border-gray-300 shadow-sm border p-2 text-sm" placeholder="默认">
+                         <datalist id="folderList">
+                             <option v-for="f in folders" :value="f" v-if="f !== '全部'"></option>
+                         </datalist>
+                    </div>
+                    
+                    <!-- Drag & Drop Zone -->
+                    <div 
+                        @dragover.prevent="dragOver = true" 
+                        @dragleave.prevent="dragOver = false" 
+                        @drop.prevent="handleDrop"
+                        @click="$refs.fileInput.click()"
+                        class="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors relative"
+                        :class="dragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50'"
+                    >
+                        <input type="file" ref="fileInput" multiple @change="handleImageSelect" class="hidden" accept="image/*"/>
+                        
+                        <div v-if="selectedFiles.length === 0" class="text-gray-500 flex flex-col items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <p class="font-medium">点击或拖拽图片到这里</p>
+                            <p class="text-xs text-gray-400 mt-1">支持批量上传</p>
+                        </div>
+                        
+                        <div v-else class="text-left w-full">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-bold text-blue-600">已选择 {{ selectedFiles.length }} 张图片</span>
+                                <button @click.stop="selectedFiles = []" class="text-red-500 text-sm hover:text-red-700 px-2">清空</button>
+                            </div>
+                            <ul class="max-h-32 overflow-y-auto text-sm text-gray-600 list-disc pl-4 bg-white rounded p-2 border">
+                                <li v-for="file in selectedFiles" :key="file.name">{{ file.name }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button @click="uploadImages" :disabled="selectedFiles.length === 0" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-gray-300 font-bold shadow transition-colors flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        开始上传 ({{ selectedFiles.length }})
+                    </button>
+                </div>
+                
+                <!-- Folder Filter for View (Dropdown) -->
+                <div class="mb-4 flex items-center justify-between bg-gray-50 p-2 rounded border">
+                     <div class="flex items-center gap-2">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                         </svg>
+                         <span class="text-sm font-medium text-gray-700">当前查看:</span>
+                     </div>
+                     <select v-model="viewFolder" class="block w-48 rounded-md border-gray-300 shadow-sm border p-1 text-sm focus:border-blue-500 focus:ring-blue-500 bg-white">
+                         <option value="全部">📂 全部图片 ({{ uploadedImages.length }})</option>
+                         <option v-for="f in folderCounts" :value="f.name">📁 {{ f.name }} ({{ f.count }})</option>
+                     </select>
+                </div>
+
+                <!-- Uploaded Images Gallery (Scrollable) -->
+                <div class="flex-1 overflow-y-auto min-h-0 pr-2">
+                    <div v-if="uploadedImages.length > 0" class="grid grid-cols-3 gap-3">
+                        <div v-for="(img, index) in filteredImages" :key="img.fileId" class="relative group border rounded p-1 hover:shadow-lg transition-shadow">
+                            <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded bg-gray-200">
+                                <img :src="img.url" class="w-full h-24 object-cover">
+                            </div>
+                            <div class="mt-1">
+                                <div class="text-[10px] truncate w-full text-center text-gray-600" :title="img.name">{{ img.name }}</div>
+                            </div>
+                            <div class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                 <button @click.stop="deleteImage(img)" class="bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] hover:bg-red-600 shadow" title="删除">×</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="text-gray-500 text-sm py-10 text-center">暂无图片</div>
+                </div>
+            </div>
+
+            <!-- Right Column: Product Config -->
+            <div class="w-full lg:w-2/3 bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">3. 商品配置 (Excel)</h2>
+                <div class="mb-4 flex items-center justify-between">
+                    <input type="file" accept=".xlsx, .xls" @change="handleExcelSelect" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"/>
+                    <a href="/download-excel-template" class="flex-shrink-0 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        下载配置模板
+                    </a>
+                </div>
+
+                <!-- Products Table -->
+                <div v-if="products.length > 0" class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">商品标题</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SKU数量</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">商家编码</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">主图 (Cover)</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">详情图 (Desc)</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">白底图 (White)</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr v-for="(product, idx) in products" :key="idx">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.title || 'Unknown' }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.skus?.length || 0 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ product.outItemId || '-' }}</td>
+                                
+                                <!-- Image Selectors -->
+                                <td class="px-6 py-4">
+                                    <button @click="openImageSelector(idx, 'cover')" class="text-blue-600 hover:text-blue-900 text-sm">
+                                        选择 ({{ product.selectedImages?.cover?.length || 0 }})
+                                    </button>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button @click="openImageSelector(idx, 'desc')" class="text-blue-600 hover:text-blue-900 text-sm">
+                                        选择 ({{ product.selectedImages?.desc?.length || 0 }})
+                                    </button>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button @click="openImageSelector(idx, 'white')" class="text-blue-600 hover:text-blue-900 text-sm">
+                                        选择 ({{ product.selectedImages?.white?.length || 0 }})
+                                    </button>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <span v-if="product.status === 'success'" class="text-green-600">成功</span>
+                                    <span v-else-if="product.status === 'error'" class="text-red-600" :title="product.errorMsg">失败</span>
+                                    <span v-else class="text-gray-500">待发布</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mt-4">
+                        <button @click="createGoods" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 font-bold w-full">批量创建商品</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Selector Modal -->
+        <div v-if="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50">
+            <div class="bg-white p-5 rounded-lg shadow-xl w-3/4 max-h-[90vh] flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold">选择图片 - {{ currentSelectorType }}</h3>
+                    <div class="flex items-center gap-2">
+                        <label class="text-sm">筛选文件夹:</label>
+                        <select v-model="modalFolder" class="border rounded p-1 text-sm">
+                            <option value="全部">全部</option>
+                            <option v-for="f in folderCounts" :value="f.name">{{ f.name }} ({{ f.count }})</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto grid grid-cols-6 gap-4 p-2 content-start">
+                    <div v-for="(img, index) in filteredModalImages" :key="img.fileId" 
+                         class="relative border rounded cursor-pointer hover:shadow-md transition-shadow p-1"
+                         :class="{'ring-2 ring-blue-500': isSelected(img)}"
+                         @click="toggleSelection(img)">
+                        <img :src="img.url" class="w-full h-24 object-cover rounded">
+                        <div class="text-xs mt-1 truncate text-center" :title="img.name">{{ img.name }}</div>
+                        <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs px-1" v-if="isSelected(img)">✓</div>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-end gap-2 border-t pt-4">
+                    <div class="flex-1 text-sm text-gray-500 flex items-center">
+                        已选 {{ tempSelection.length }} 张
+                    </div>
+                    <button @click="showModal = false" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">取消</button>
+                    <button @click="confirmSelection" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">确认</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% endraw %}
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    // Config state
+                    showConfig: true,
+                    config: { cookie: '', ctoken: '' },
+                    
+                    // File/Image state
+                    selectedFiles: [],
+                    dragOver: false,
+                    uploadedImages: [], // { name: '', url: '', fileId: '', imageId: '', status: 'success', folder: '' }
+                    products: [],
+                    
+                    // Folder State
+                    uploadFolder: '默认',
+                    viewFolder: '全部',
+                    modalFolder: '全部',
+
+                    // Modal state
+                    showModal: false,
+                    currentProductIdx: null,
+                    currentSelectorType: '', // 'cover', 'desc', 'white'
+                    tempSelection: [],
+                    
+                    // Template
+                    template: null,
+                    templateLoaded: false
+                }
+            },
+            computed: {
+                folderCounts() {
+                    const counts = {};
+                    this.uploadedImages.forEach(img => {
+                        const f = img.folder || 'default';
+                        counts[f] = (counts[f] || 0) + 1;
+                    });
+                    return Object.keys(counts).sort().map(k => ({name: k, count: counts[k]}));
+                },
+                folders() {
+                    return ['全部', ...this.folderCounts.map(f => f.name)];
+                },
+                filteredImages() {
+                    if (this.viewFolder === '全部') return this.uploadedImages;
+                    return this.uploadedImages.filter(i => (i.folder || 'default') === this.viewFolder);
+                },
+                filteredModalImages() {
+                    if (this.modalFolder === '全部') return this.uploadedImages;
+                    return this.uploadedImages.filter(i => (i.folder || 'default') === this.modalFolder);
+                }
+            },
+            watch: {
+                viewFolder(newVal) {
+                    if (newVal !== '全部') {
+                        this.uploadFolder = newVal;
+                    }
+                }
+            },
+            mounted() {
+                // Restore cookie from localStorage
+                const savedCookie = localStorage.getItem('alipay_cookie');
+                if (savedCookie) {
+                    this.config.cookie = savedCookie;
+                    // Auto-sync with backend if cookie exists (silent)
+                    this.saveConfig(true); 
+                    // Hide config if cookie exists (User request)
+                    this.showConfig = false;
+                }
+                this.loadTemplate();
+                this.loadImages();
+            },
+            methods: {
+                async loadImages() {
+                    try {
+                        const res = await fetch('/get-images');
+                        const data = await res.json();
+                        if (data.status === 'success') {
+                            this.uploadedImages = data.images;
+                        }
+                    } catch (e) {
+                        console.error("Failed to load images", e);
+                    }
+                },
+                async loadTemplate() {
+                    try {
+                        const res = await fetch('/get-template');
+                        const data = await res.json();
+                        if (data.status === 'success') {
+                            this.template = data.template;
+                            this.templateLoaded = true;
+                        }
+                    } catch (e) {
+                        console.error("Failed to load template", e);
+                    }
+                },
+                async saveConfig(silent = false) {
+                    // Save to local storage
+                    if (this.config.cookie) {
+                         localStorage.setItem('alipay_cookie', this.config.cookie);
+                    }
+
+                    const res = await fetch('/config', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(this.config)
+                    });
+                    const data = await res.json();
+                    if (data.status === 'success') {
+                        this.config.ctoken = data.ctoken; // Update ctoken from response
+                        if (!silent) alert(data.message);
+                        if (!silent) this.showConfig = false; // Auto hide on manual save
+                    } else {
+                        if (!silent) alert("配置保存失败");
+                    }
+                },
+                handleImageSelect(event) {
+                    if (event.target.files.length > 0) {
+                        this.selectedFiles = Array.from(event.target.files);
+                    }
+                },
+                handleDrop(event) {
+                    this.dragOver = false;
+                    const files = Array.from(event.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+                    if (files.length > 0) {
+                        this.selectedFiles = files;
+                    } else {
+                        alert("请拖入图片文件");
+                    }
+                },
+                async uploadImages() {
+                    for (const file of this.selectedFiles) {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('folder', this.uploadFolder);
+                        
+                        try {
+                            const res = await fetch('/upload-image', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            const data = await res.json();
+                            if (data.status === 'success') {
+                                this.uploadedImages.unshift({ // Add to beginning
+                                    name: file.name,
+                                    folder: this.uploadFolder,
+                                    url: data.url,
+                                    fileId: data.fileId,
+                                    imageId: data.imageId,
+                                    status: 'success'
+                                });
+                            } else {
+                                alert(`Failed to upload ${file.name}: ${data.message}`);
+                            }
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                    this.selectedFiles = []; // Clear selection after upload
+                },
+                async deleteImage(img) {
+                    if (!confirm(`确认删除图片 ${img.name} 吗?`)) return;
+                    
+                    try {
+                        const res = await fetch('/delete-image', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({ folder: img.folder || 'default', name: img.name })
+                        });
+                        const data = await res.json();
+                        if (data.status === 'success') {
+                            this.uploadedImages = this.uploadedImages.filter(i => i.fileId !== img.fileId);
+                        } else {
+                            alert("删除失败: " + data.message);
+                        }
+                    } catch(e) {
+                        alert("删除出错: " + e.message);
+                    }
+                },
+                async handleExcelSelect(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+                    
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    try {
+                        const res = await fetch('/parse-excel', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const data = await res.json();
+                        console.log("Excel parse result:", data); // Debug
+                        
+                        if (data.status === 'success') {
+                            if (data.data.length > 0 && data.data[0].error) {
+                                alert("Excel 解析错误: " + data.data[0].error);
+                                return;
+                            }
+                            
+                            // Initialize selectedImages structure for each product
+                            this.products = data.data.map(p => ({
+                                ...p,
+                                selectedImages: { cover: [], desc: [], white: [] },
+                                status: 'pending'
+                            }));
+                            
+                            if (this.products.length === 0) {
+                                alert("Excel 解析成功，但未找到商品数据");
+                            }
+                        } else {
+                            alert("Excel 解析失败: " + data.message);
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        alert("Excel 上传出错");
+                    }
+                },
+                openImageSelector(productIdx, type) {
+                    this.currentProductIdx = productIdx;
+                    this.currentSelectorType = type;
+                    // Load existing selection if any
+                    this.tempSelection = [...this.products[productIdx].selectedImages[type]];
+                    this.showModal = true;
+                },
+                isSelected(img) {
+                    return this.tempSelection.some(i => i.fileId === img.fileId);
+                },
+                toggleSelection(img) {
+                    const idx = this.tempSelection.findIndex(i => i.fileId === img.fileId);
+                    if (idx > -1) {
+                        this.tempSelection.splice(idx, 1);
+                    } else {
+                        // For 'white' type, usually only 1 image is allowed, but let's allow multiple for now or restrict?
+                        // Alipay usually expects 1 white background image, but API might take a list.
+                        // Let's keep it flexible.
+                        this.tempSelection.push(img);
+                    }
+                },
+                confirmSelection() {
+                    if (this.currentProductIdx !== null && this.currentSelectorType) {
+                        this.products[this.currentProductIdx].selectedImages[this.currentSelectorType] = [...this.tempSelection];
+                    }
+                    this.showModal = false;
+                },
+                async createGoods() {
+                    const results = [];
+                    for (let i = 0; i < this.products.length; i++) {
+                        const product = this.products[i];
+                        
+                        // Basic validation
+                        if (product.selectedImages.cover.length === 0) {
+                            alert(`商品 "${product.title}" 缺少主图`);
+                            return;
+                        }
+
+                        // Prepare payload
+                        const payload = {
+                            product: product,
+                            images: product.selectedImages
+                        };
+
+                        try {
+                            const res = await fetch('/create-goods', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify(payload)
+                            });
+                            const data = await res.json();
+                            
+                            // Update status
+                            if (data.results && data.results.length > 0) {
+                                // Check if any result has error
+                                const hasError = data.results.some(r => r.status === 'error' || (r.response && r.response.code !== '10000'));
+                                if (hasError) {
+                                    product.status = 'error';
+                                    product.errorMsg = JSON.stringify(data.results);
+                                } else {
+                                    product.status = 'success';
+                                }
+                            } else {
+                                product.status = 'error';
+                                product.errorMsg = 'No response data';
+                            }
+                        } catch (e) {
+                            product.status = 'error';
+                            product.errorMsg = e.message;
+                        }
+                    }
+                    alert("批量处理完成");
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
